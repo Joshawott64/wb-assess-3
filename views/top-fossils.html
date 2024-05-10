@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block title %} Most Liked Fossils {% endblock title %}
+  </head>
+  {% block body %}
+    <h1>Welcome {{ username }}!</h1>
+    {% for fossil in fossils %}
+      <div class="fossil-div">
+        <h3>{{ username }}, this is a {{ fossil[1].name }}</h3>
+        <h2>Liked {{ fossil[1].num_likes }} times.</h2>
+        <img src="{{ fossil[1].img }}" />
+      </div>
+    {% endfor %}
+
+    <div>
+      <form action="/like-fossil" method="post">
+        <input list="top-four-fossils" name="fossil">
+        <datalist id="top-four-fossils">
+          <option value={{ fossils[0][0] }}></option>
+          <option value={{ fossils[1][0] }}></option>
+          <option value={{ fossils[2][0] }}></option>
+          <option value={{ fossils[3][0] }}></option>
+        </datalist>
+        <input type="submit" value="Like">
+      </form>
+    </div>
+  {% endblock body %}
+</html>
